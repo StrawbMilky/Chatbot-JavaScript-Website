@@ -58,18 +58,23 @@ function runChatbot(){
         response.innerText = "Your name is " + answer + ".";
         question.innerText = "When is your birthday?";
 
-        questionNumber++; 
-
         document.getElementById("birthdayForm").style.visibility = "visible";
         document.getElementById("answerForm").style.visibility = "hidden";
     }
-    else {
+    else if (questionNumber === 1) {
 
         calculateNextbirthday();
 
         question.innerText = "What is your favorite holiday?";
     }
 
+    else if (questionNumber === 2){
+
+        response.innerText = "Your holiday is X days away.";
+        question.innerText = "How old are you?";
+    }
+
+    questionNumber++; 
 }
 
 const answerForm = document.getElementById("answerForm");
@@ -81,5 +86,11 @@ answerForm.addEventListener("submit", function(event){
 const birthdayForm = document.getElementById("birthdayForm");
 birthdayForm.addEventListener("submit", function(event){
    
+    runChatbot();
+});
+
+const holidayForm = document.getElementById("holidayForm");
+holidayForm.addEventListener("submit", function(event){
+
     runChatbot();
 });
