@@ -47,6 +47,60 @@ function calculateNextbirthday(){
     response.innerText = "Your birthday is " + calculateHowManyDaysAway(birthdayDate) + " days away.";
 }
 
+function calculateNextHoliday(){
+
+    const holidays = document.getElementById("holidays");
+
+    const favoriteHoliday = holidays.options[holidays.selectedIndex].value;
+
+    let month = 1;
+    let day = 1;
+
+    switch (favoriteHoliday){ //used if there is a lot of different options
+
+        case "Chinese New Year":
+            month = 1;
+            day = 22;
+            break; //neccessary to be able to exit case
+
+        case "Christmas":
+            month = 12;
+            day = 24;
+            break;
+        
+        case "Halloween":
+            month = 10;
+            day = 31;
+            break;
+
+        case "Hannukah":
+            month = 12;
+            day = 7;
+            break;
+        
+        case "Kwanza":
+            month = 12;
+            day = 26;
+            break;
+
+        case "New Year":
+            month = 1;
+            day = 1;
+            break;
+        
+        case "Ramadan":
+            month = 3;
+            day = 26;
+            break;
+
+        default: //if all the cases above fail
+            month = 1;
+            day = 1;
+    }
+
+    response.innerText = "Your favorite holiday " + favoriteHoliday + " is X days away.";
+}
+
 function runChatbot(){
 
     event.preventDefault(); //prevents default submission behavior = reloading the page
@@ -70,7 +124,8 @@ function runChatbot(){
 
     else if (questionNumber === 2){
 
-        response.innerText = "Your holiday is X days away.";
+        calculateNextHoliday();
+
         question.innerText = "How old are you?";
     }
 
