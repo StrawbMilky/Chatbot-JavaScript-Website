@@ -98,7 +98,17 @@ function calculateNextHoliday(){
             day = 1;
     }
 
-    response.innerText = "Your favorite holiday " + favoriteHoliday + " is X days away.";
+    let year = new Date().getFullYear();
+    let holidayDate = new Date(year + "-" + month + "-" + day);
+
+    if (new Date() > holidayDate){
+        year++
+        holidayDate = new Date(year + "-" + month + "-" + day);
+    }
+
+    const howManyDaysAwayIsTheHoliday = calculateHowManyDaysAway(holidayDate);
+
+    response.innerText = favoriteHoliday +  " is " + howManyDaysAwayIsTheHoliday + " days away."; //SHOWS A DEFAULT TIMEZONE. MAYBE I CHANGE?
 }
 
 function runChatbot(){
@@ -120,6 +130,9 @@ function runChatbot(){
         calculateNextbirthday();
 
         question.innerText = "What is your favorite holiday?";
+
+        document.getElementById("birthdayForm").style.visibility = "hidden";
+        document.getElementById("holidayForm").style.visibility = "visible";
     }
 
     else if (questionNumber === 2){
