@@ -118,7 +118,17 @@ function runChatbot(){
     const answer = document.getElementById("answer").value;
     const question = document.getElementById("question");
 
-    if (questionNumber === 0) { //good practise to use === to check for a quality in js 
+    if (questionNumber === -1){
+
+        question.innerText = "What is your name?";
+        response.innerText = "";
+
+        document.getElementById("answerForm").style.visibility = "visible";
+        document.getElementById("birthdayForm").style.visibility = "hidden";
+        document.getElementById("holidayForm").style.visibility = "hidden";
+    }
+
+    else if (questionNumber === 0) { //good practise to use === to check for a quality in js 
         response.innerText = "Your name is " + answer + ".";
         question.innerText = "When is your birthday?";
 
@@ -139,7 +149,21 @@ function runChatbot(){
 
         calculateNextHoliday();
 
+        document.getElementById("answer").value = "";
         question.innerText = "How old are you?";
+        document.getElementById("answerForm").style.visibility = "visible";
+        document.getElementById("holidayForm").style.visibility = "hidden";
+    }
+
+    else if (questionNumber === 3){
+
+        const yearOfBirth = new Date().getFullYear() - answer; 
+        response.innerText = "You were born in " + yearOfBirth + ".";
+
+        question.innerText = "Thanks for playing!";
+
+        document.getElementById("answerForm").style.visibility = "hidden";
+
     }
 
     questionNumber++; 
@@ -162,3 +186,10 @@ holidayForm.addEventListener("submit", function(event){
 
     runChatbot();
 });
+
+const restartButton = document.getElementById("restartButton");
+restartButton.addEventListener("click", function (event){
+
+    questionNumber = -1;
+    runChatbot();
+})
