@@ -117,23 +117,29 @@ function runChatbot(){
     
     const answer = document.getElementById("answer").value;
     const question = document.getElementById("question");
+    const answerForm = document.getElementById("answerForm");
+    const birthdayForm = document.getElementById("birthdayForm")
+    const holidayForm = document.getElementById("holidayForm");
+    const restartButton = document.getElementById("restartButton");
 
     if (questionNumber === -1){
 
         question.innerText = "What is your name?";
         response.innerText = "";
 
-        document.getElementById("answerForm").style.visibility = "visible";
-        document.getElementById("birthdayForm").style.visibility = "hidden";
-        document.getElementById("holidayForm").style.visibility = "hidden";
+        answerForm.style.visibility = "visible";
+        birthdayForm.style.visibility = "hidden";
+        holidayForm.style.visibility = "hidden";
+        restartButton.style.visibility = "hidden";
     }
+    
 
     else if (questionNumber === 0) { //good practise to use === to check for a quality in js 
         response.innerText = "Your name is " + answer + ".";
         question.innerText = "When is your birthday?";
 
-        document.getElementById("birthdayForm").style.visibility = "visible";
-        document.getElementById("answerForm").style.visibility = "hidden";
+        birthdayForm.style.visibility = "visible";
+        answerForm.style.visibility = "hidden";
     }
     else if (questionNumber === 1) {
 
@@ -141,8 +147,8 @@ function runChatbot(){
 
         question.innerText = "What is your favorite holiday?";
 
-        document.getElementById("birthdayForm").style.visibility = "hidden";
-        document.getElementById("holidayForm").style.visibility = "visible";
+        birthdayForm.style.visibility = "hidden";
+        holidayForm.style.visibility = "visible";
     }
 
     else if (questionNumber === 2){
@@ -151,8 +157,8 @@ function runChatbot(){
 
         document.getElementById("answer").value = "";
         question.innerText = "How old are you?";
-        document.getElementById("answerForm").style.visibility = "visible";
-        document.getElementById("holidayForm").style.visibility = "hidden";
+        answerForm.style.visibility = "visible";
+        holidayForm.style.visibility = "hidden";
     }
 
     else if (questionNumber === 3){
@@ -162,8 +168,8 @@ function runChatbot(){
 
         question.innerText = "Thanks for playing!";
 
-        document.getElementById("answerForm").style.visibility = "hidden";
-
+        answerForm.style.visibility = "hidden";
+        restartButton.style.visibility = "visible";
     }
 
     questionNumber++; 
@@ -171,25 +177,36 @@ function runChatbot(){
 
 const answerForm = document.getElementById("answerForm");
 answerForm.addEventListener("submit", function(event){
-    
     runChatbot();
+    document.getElementById("answer").value = "";
 });
 
 const birthdayForm = document.getElementById("birthdayForm");
 birthdayForm.addEventListener("submit", function(event){
-   
     runChatbot();
+    document.getElementById("answer").value = "";
 });
 
 const holidayForm = document.getElementById("holidayForm");
 holidayForm.addEventListener("submit", function(event){
-
     runChatbot();
+    document.getElementById("answer").value = "";
 });
 
 const restartButton = document.getElementById("restartButton");
 restartButton.addEventListener("click", function (event){
-
     questionNumber = -1;
+
+    //clear all input field inside all forms
+    document.querySelectorAll("input, select").forEach(field => {
+        if (field.tagName === "INPUT"){
+            field.value = "";
+        } else if (field.tagName === "SELECT"){
+            field.selectedIndex = 0; //reset select dropdown
+        }
+    });
+    
     runChatbot();
 })
+
+
